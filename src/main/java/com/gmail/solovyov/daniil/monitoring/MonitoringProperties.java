@@ -1,4 +1,4 @@
-package com.gmail.solovyov.daniil;
+package com.gmail.solovyov.daniil.monitoring;
 
 import lombok.Getter;
 import lombok.Setter;

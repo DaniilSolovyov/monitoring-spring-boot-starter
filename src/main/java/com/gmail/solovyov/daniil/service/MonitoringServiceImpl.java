@@ -1,8 +1,8 @@
-package com.gmail.solovyov.daniil.monitoring;
+package com.gmail.solovyov.daniil.service;
 
-import com.gmail.solovyov.daniil.event.EventRepository;
-import com.gmail.solovyov.daniil.metric.Metric;
-import com.gmail.solovyov.daniil.metric.MetricRepository;
+import com.gmail.solovyov.daniil.repository.EventRepository;
+import com.gmail.solovyov.daniil.domain.Metric;
+import com.gmail.solovyov.daniil.repository.MetricRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,18 +24,18 @@ public class MonitoringServiceImpl implements MonitoringService {
 
     @Override
     public void monitor(String eventName, long value, Object[] args, long timestamp) {
-        eventRepository.save(eventName);
-
-        Metric metric = new Metric();
-        metric.setEventName(eventName);
-        metric.setValue(value);
-        metric.setParameters(argsToString(args));
-        metric.setEventTimestamp(new Timestamp(timestamp));
-
-        metricRepository.save(metric);
+////        eventRepository.save(eventName);
+//
+//        Metric metric = new Metric();
+////        metric.setEventName(eventName);
+//        metric.setValue(value);
+//        metric.setParameters(argsToString(args));
+//        metric.setEventTimestamp(new Timestamp(timestamp));
+//
+//        metricRepository.save(metric);
     }
 
-    public String argsToString(Object[] args) {
+    private String argsToString(Object[] args) {
         return Arrays.stream(args)
                 .map(Object::toString)
                 .collect(Collectors.joining(","));

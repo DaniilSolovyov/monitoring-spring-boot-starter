@@ -1,5 +1,6 @@
 package com.gmail.solovyov.daniil.monitoring;
 
+import com.gmail.solovyov.daniil.service.MonitoringService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
