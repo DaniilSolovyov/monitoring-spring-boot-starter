@@ -1,4 +1,4 @@
-package app.metric;
+package com.gmail.solovyov.daniil.metric;
 
 import lombok.Data;
 

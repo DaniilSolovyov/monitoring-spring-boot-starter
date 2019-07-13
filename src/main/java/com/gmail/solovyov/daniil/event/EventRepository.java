@@ -1,4 +1,4 @@
-package app.event;
+package com.gmail.solovyov.daniil.event;
 
 public interface EventRepository {
     //    Event findByName(String name);

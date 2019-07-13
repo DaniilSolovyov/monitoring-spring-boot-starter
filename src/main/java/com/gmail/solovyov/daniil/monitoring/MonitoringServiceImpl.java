@@ -1,8 +1,8 @@
-package app.monitoring;
+package com.gmail.solovyov.daniil.monitoring;
 
-import app.event.EventRepository;
-import app.metric.Metric;
-import app.metric.MetricRepository;
+import com.gmail.solovyov.daniil.event.EventRepository;
+import com.gmail.solovyov.daniil.metric.Metric;
+import com.gmail.solovyov.daniil.metric.MetricRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

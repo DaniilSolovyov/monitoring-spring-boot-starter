@@ -1,4 +1,4 @@
-package app.monitoring;
+package com.gmail.solovyov.daniil.monitoring;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -22,7 +22,7 @@ public class MonitoringAspect {
         this.monitoringService = monitoringService;
     }
 
-    @Around("@annotation(app.monitoring.Monitoring)")
+    @Around("@annotation(com.gmail.solovyov.daniil.monitoring.Monitoring)")
     public Object monitor(ProceedingJoinPoint joinPoint) throws Throwable {
 
         String eventName = ((MethodSignature) joinPoint.getSignature()).getMethod().getAnnotation(Monitoring.class).value();

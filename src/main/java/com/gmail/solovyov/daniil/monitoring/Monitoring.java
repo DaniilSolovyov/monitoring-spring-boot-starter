@@ -1,4 +1,4 @@
-package app.monitoring;
+package com.gmail.solovyov.daniil.monitoring;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
