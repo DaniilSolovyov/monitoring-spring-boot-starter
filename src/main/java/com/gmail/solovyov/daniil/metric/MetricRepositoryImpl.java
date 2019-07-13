@@ -1,6 +1,7 @@
 package com.gmail.solovyov.daniil.metric;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +21,7 @@ public class MetricRepositoryImpl implements MetricRepository {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public MetricRepositoryImpl(JdbcTemplate jdbcTemplate) {
+    public MetricRepositoryImpl(@Qualifier("monitoring") JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

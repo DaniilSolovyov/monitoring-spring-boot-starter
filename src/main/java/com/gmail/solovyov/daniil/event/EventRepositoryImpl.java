@@ -1,6 +1,7 @@
 package com.gmail.solovyov.daniil.event;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,7 @@ public class EventRepositoryImpl implements EventRepository {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public EventRepositoryImpl(JdbcTemplate jdbcTemplate) {
+    public EventRepositoryImpl(@Qualifier("monitoring") JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
