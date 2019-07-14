@@ -24,15 +24,16 @@ public class MonitoringServiceImpl implements MonitoringService {
 
     @Override
     public void monitor(String eventName, long value, Object[] args, long timestamp) {
-////        eventRepository.save(eventName);
-//
-//        Metric metric = new Metric();
-////        metric.setEventName(eventName);
-//        metric.setValue(value);
-//        metric.setParameters(argsToString(args));
-//        metric.setEventTimestamp(new Timestamp(timestamp));
-//
-//        metricRepository.save(metric);
+        Integer eventId = eventRepository.findIdByName(eventName);
+        eventId = eventId == null ? eventRepository.create(eventName) : eventId;
+
+        Metric metric = new Metric();
+        metric.setEventId(eventId);
+        metric.setValue(value);
+        metric.setParameters(argsToString(args));
+        metric.setEventTimestamp(new Timestamp(timestamp));
+
+        metricRepository.save(metric);
     }
 
     private String argsToString(Object[] args) {
