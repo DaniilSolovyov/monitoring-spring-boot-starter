@@ -37,7 +37,7 @@ public class MonitoringAspectTest {
         testBean.methodUnderMonitoring(name, value);
         verify(monitoringService).monitor(eq("METHOD_START"), eq(1L), aryEq(args), anyLong());
         verify(monitoringService).monitor(eq("METHOD_END"), eq(1L), aryEq(args), anyLong());
-        verify(monitoringService).monitor(eq("METHOD_DURATION"), gt((long) value), aryEq(args), anyLong());
+        verify(monitoringService).monitor(eq("METHOD_DURATION"), geq((long) value), aryEq(args), anyLong());
     }
 
     @Test
