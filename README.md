@@ -13,8 +13,11 @@ CREATE TABLE METRIC
 ~~~~
 Provide three properties in application.properties file
 ~~~~properties
+#queue size with metrics for batch processing
 monitoring.queue-size=
+#max size for batch
 monitoring.batch-size=
+#min size for batch
 monitoring.batch-threshold=
 ~~~~
 Add the JitPack repository to your build file
