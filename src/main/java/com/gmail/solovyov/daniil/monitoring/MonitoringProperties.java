@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "monitoring.database")
+@ConfigurationProperties(prefix = "monitoring")
 @Getter
 @Setter
 public class MonitoringProperties {
-    private String url;
-    private String username;
-    private String password;
+    private Integer queueSize;
+    private Integer batchSize;
+    private Integer batchThreshold;
 }

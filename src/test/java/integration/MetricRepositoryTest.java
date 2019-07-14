@@ -3,37 +3,30 @@ package integration;
 import com.gmail.solovyov.daniil.domain.Metric;
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.jdbc.JdbcTestUtils;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.List;
 
-public class MetricRepositoryTest extends BaseRepositoryTest {
+
+public class MetricRepositoryTest extends BaseSpringBootTest{
 
     @Test
-    public void shouldCreateEntry() {
-        Integer eventId = eventRepository.create("Name");
+    public void shouldInsertAndAssignId(){
+        Metric expectedMetric = new Metric("EVENT", 300L, "PARAMETERS", new Timestamp(12345));
 
-        Metric metric = new Metric();
-        metric.setEventId(eventId);
-        metric.setValue(300L);
-        metric.setParameters("Parameters");
-        metric.setEventTimestamp(new Timestamp(System.currentTimeMillis()));
+        metricRepository.saveAll(Arrays.asList(expectedMetric));
 
-        metricRepository.save(metric);
+        List<Metric> metrics = metricRepository.findAll();
 
-        int rowsCount = JdbcTestUtils.countRowsInTable(jdbcTemplate, "METRIC");
-        Assert.assertEquals(1, rowsCount);
-    }
+        Assert.assertEquals(1, metrics.size());
 
-    @Test(expected = DataIntegrityViolationException.class)
-    public void shouldThrowException() {
-        Metric metric = new Metric();
-        metric.setEventId(1);
-        metric.setValue(300L);
-        metric.setParameters("Parameters");
-        metric.setEventTimestamp(new Timestamp(System.currentTimeMillis()));
+        Metric actualMetric = metrics.iterator().next();
 
-        metricRepository.save(metric);
+        Assert.assertNotNull(actualMetric.getId());
+        Assert.assertEquals(expectedMetric.getEventName(), actualMetric.getEventName());
+        Assert.assertEquals(expectedMetric.getValue(), actualMetric.getValue());
+        Assert.assertEquals(expectedMetric.getParameters(), actualMetric.getParameters());
+        Assert.assertEquals(expectedMetric.getEventTimestamp(), actualMetric.getEventTimestamp());
     }
 }

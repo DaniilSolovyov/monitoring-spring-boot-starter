@@ -1,12 +1,15 @@
 package com.gmail.solovyov.daniil.monitoring;
 
+import com.gmail.solovyov.daniil.domain.Metric;
 import com.gmail.solovyov.daniil.service.MonitoringService;
+import com.gmail.solovyov.daniil.util.MetricUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.sql.Timestamp;
 
 @Aspect
 @Component
@@ -18,7 +21,6 @@ public class MonitoringAspect {
 
     private MonitoringService monitoringService;
 
-    @Autowired
     public MonitoringAspect(MonitoringService monitoringService) {
         this.monitoringService = monitoringService;
     }
@@ -30,15 +32,19 @@ public class MonitoringAspect {
         Object[] args = joinPoint.getArgs();
 
         long start = System.currentTimeMillis();
-        monitoringService.monitor(eventName.concat(START), 1, args, start);
+        monitoringService.monitor(
+                new Metric(eventName.concat(START), 1L, MetricUtil.argsToString(args), new Timestamp(start)));
 
         Object proceed = joinPoint.proceed();
 
         long end = System.currentTimeMillis();
-        monitoringService.monitor(eventName.concat(END), 1, args, end);
+        monitoringService.monitor(
+                new Metric(eventName.concat(END), 1L, MetricUtil.argsToString(args), new Timestamp(end)));
+
 
         long duration = end - start;
-        monitoringService.monitor(eventName.concat(DURATION), duration, args, end);
+        monitoringService.monitor(
+                new Metric(eventName.concat(DURATION), duration, MetricUtil.argsToString(args), new Timestamp(end)));
 
         return proceed;
     }
