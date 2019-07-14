@@ -10,7 +10,7 @@ import java.util.List;
 public class MonitoringRepositoryImpl extends BaseRepository implements MonitoringRepository {
 
     private static final String FIND_ALL_SCRIPT =
-            "SELECT M.ID, E.NAME, M.VALUE, M.PARAMETERS, M.EVENT_TIMESTAMP FROM METRIC AS M " +
+            "SELECT M.ID, E.NAME AS EVENT_NAME, M.VALUE, M.PARAMETERS, M.EVENT_TIMESTAMP FROM METRIC AS M " +
                     "LEFT JOIN EVENT E on M.EVENT_ID = E.ID";
 
     @Override

@@ -16,8 +16,9 @@ public class MonitoringRepositoryTest extends BaseRepositoryTest {
     private MonitoringRepository monitoringRepository;
 
     @Test
-    public void shouldReturnOneRow() {
-        Integer eventId = eventRepository.create("Name");
+    public void shouldReturnOneEntityWithoutEmptyFields() {
+        String eventName = "Name";
+        Integer eventId = eventRepository.create(eventName);
 
         Metric metric = new Metric();
         metric.setEventId(eventId);
@@ -28,7 +29,13 @@ public class MonitoringRepositoryTest extends BaseRepositoryTest {
         metricRepository.save(metric);
 
         List<Monitoring> result = monitoringRepository.findAll();
-
         Assert.assertEquals(1, result.size());
+
+        Monitoring monitoring = result.iterator().next();
+        Assert.assertNotNull(monitoring.getId());
+        Assert.assertEquals(eventName, monitoring.getEventName());
+        Assert.assertEquals(metric.getValue(), monitoring.getValue());
+        Assert.assertEquals(metric.getParameters(), monitoring.getParameters());
+        Assert.assertEquals(metric.getEventTimestamp(), monitoring.getEventTimestamp());
     }
 }
