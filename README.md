@@ -1,29 +1,38 @@
 # Useful monitoring spring boot starter
-Create two tables in your PostgreSQL
+Create table in your PostgreSQL
 ~~~~sql
-CREATE TABLE EVENT
-(
-  ID   SERIAL,
-  NAME VARCHAR(128) UNIQUE NOT NULL,
-  PRIMARY KEY (ID)
-);
-
 CREATE TABLE METRIC
 (
-  ID              SERIAL,
-  EVENT_ID        INT,
+  ID              BIGSERIAL,
+  EVENT_NAME      TEXT,
   VALUE           BIGINT,
-  PARAMETERS      VARCHAR(1024),
+  PARAMETERS      TEXT,
   EVENT_TIMESTAMP TIMESTAMP,
-  PRIMARY KEY (ID),
-  FOREIGN KEY (EVENT_ID) REFERENCES EVENT (ID)
+  PRIMARY KEY (ID)
 );
 ~~~~
 Provide three properties in application.properties file
 ~~~~properties
-monitoring.database.url=
-monitoring.database.username=
-monitoring.database.password=
+monitoring.queue-size=
+monitoring.batch-size=
+monitoring.batch-threshold=
+~~~~
+Add the JitPack repository to your build file
+~~~~xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+~~~~
+Add the dependency
+~~~~xml
+<dependency>
+    <groupId>com.github.DaniilSolovyov</groupId>
+    <artifactId>monitoring-spring-boot-starter</artifactId>
+    <version>2.0.2.RELEASE</version>
+</dependency>
 ~~~~
 Place annotation on interested method or methods
 ~~~~java
